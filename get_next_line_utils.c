@@ -6,12 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/08 22:53:56 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/09 12:37:00 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 size_t	ft_strlen(char *str)
 {
@@ -28,10 +27,7 @@ int	ft_isline(char *str)
 	while (*str)
 	{
 		if (*str == '\n')
-		{
-			printf("new line found\n");
 			return (1);
-		}
 		str++;
 	}
 	return (0);
