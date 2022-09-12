@@ -6,10 +6,11 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/09 12:39:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/12 23:20:47 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+						#include <stdio.h> // DEBUG
 #include "get_next_line.h"
 #define FD_LIMIT 1024
 #ifndef BUFFER_SIZE
@@ -20,59 +21,99 @@
 # define BUFFER_SIZE 1000
 #endif
 
-char	*read_buffer(size_t size, int fd)
-{
-	char	*buff;
-	size_t	i;
-	char	c;
-	int		readed;
 
-	buff = (char *) malloc(sizeof(char) * (size + 1));
-	if (buff == NULL)
-		return (NULL);
-	i = 0;
-	readed = read(fd, &c, 1);
-	if (readed <= 0)
+// size_t	ft_get_line_len(char *buff)
+// {
+// 	size_t	len;
+
+// 	len = 0;
+// 	while (*(buff + len))
+// 	{
+// 		len++;
+// 		if (*(buff + len) == '\n')
+// 			break ;
+// 	}
+// 	return (len);
+// }
+
+// char	*extract_line(char *buff, size_t len)
+// {
+// 	size_t	i;
+// 	char	*line;
+
+// 	line = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (line == NULL)
+// 		return (NULL);
+// 	i = 0;
+// 	while (i < len)
+// 		*(line + i++) = *buff++;
+// 	*(line + i++) = '\0';
+// 	return (line);
+// }
+
+// char	*trim_buff(char *buff, size_t len)
+// {
+// 	char	*trimmed;
+// 	size_t	i;
+
+// 	trimmed = (char *)malloc(sizeof(char) * (ft_strlen(buff) - len + 1));
+// 	if (trimmed == NULL)
+// 		return (NULL);
+// 	i = 0;
+// 	while (len < ft_strlen(buff))
+// 		*(trimmed + i++) = *(buff + len++);
+// 	*(trimmed + i) = '\0';
+// 	return (trimmed);
+// }
+
+static char	*read_buffer(int fd, char *buff)
+{
+	char	*tempbuff;
+	int		bytes;
+
+	bytes = 1;
+	while (!ft_strchr(buff, '\n') && bytes != 0)
 	{
-		free (buff);
-		return (NULL);
+		tempbuff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (tempbuff == NULL)
+			return (NULL);
+		bytes = read(fd, tempbuff, BUFFER_SIZE);
+				printf("   - bytes: %d\n\n", bytes); // DEBUG
+		*(tempbuff + bytes) = '\0';
+		buff = ft_strjoin(buff, tempbuff);
+		printf("   - buff: %s\n\n", buff); // DEBIUG
 	}
-	while (readed == 1)
-	{
-		*(buff + i++) = c;
-		if (c == '\n' || i == size)
-			break ;
-		readed = read(fd, &c, 1);
-	}
-	*(buff + i) = '\0';
 	return (buff);
 }
 
-char	*get_line(size_t size, int fd)
+static size_t	ft_get_line_len(char *buff)
 {
-	char	*line;
-	char	*extline;
-	char	*buff;
+	size_t	len;
 
-	line = NULL;
-	while (1)
+	len = 0;
+	while (*(buff + len))
 	{
-		buff = read_buffer(size, fd);
-		if (buff == NULL)
-			return (line);
-		if (line == NULL)
-			line = buff;
-		else
-		{
-			extline = ft_strjoin(line, buff);
-			free(buff);
-			free(line);
-			line = extline;
-		}
-		if (ft_isline(line) || line == NULL)
+		len++;
+		if (*(buff + len) == '\n')
 			break ;
 	}
-	return (line);
+	return (len);
+}
+
+static void	ft_trim(char **line, char **buff)
+{
+	size_t	len;
+	char	*temp;
+
+	len = ft_get_line_len(*buff);
+	*line = (char *)malloc(sizeof(char) * (len + 1));
+	if (*line == NULL)
+		return ;
+	*line = ft_substr(*buff, 0, len);
+	temp = ft_substr(*buff, len, ft_strlen(*buff) - len);
+	free (*buff);
+	*buff = temp;
+	free (temp); 
 }
 
 /* DESCRIPTION:
@@ -89,17 +130,28 @@ The function should be protected against reading binary files.
 -----------------------------------------------------------------------------*/
 char	*get_next_line(int fd)
 {
-	char	*line;
+	char		*line;
+	static char	*buff;
 
 	if (fd == -1 || fd > FD_LIMIT || BUFFER_SIZE < 1)
 		return (NULL);
-	line = get_line(BUFFER_SIZE, fd);
-	if (line == NULL)
+	buff = read_buffer(fd, buff);
+	if (buff == NULL)
 		return (NULL);
+	ft_trim(&line, &buff);
+
+
+	//line = NULL;
+	// len = ft_get_line_len(buff);
+	// if (len > 0)
+	// {
+	// 	line = extract_line(buff, len);
+	// 	buff = trim_buff(buff, len);
+	// }
 	return (line);
 }
 
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -123,4 +175,3 @@ int	main(void)
 	return (0);
 }
 
-*/
