@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/12 23:17:17 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:56:12 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,15 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (join);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_isline(char *str)
 {
-	size_t	i;
-
-	i = 0;
-	while (*(s + i))
+	while (*str)
 	{
-		if (*(s + i) == (char)c)
-			return ((char *)s + i);
-		i++;
+		if (*str == '\n')
+			return (1);
+		str++;
 	}
-	if ((char)c == '\0')
-		return ((char *)s + i);
-	return (NULL);
+	return (0);
 }
 
 static char	*ft_empty_string(void)

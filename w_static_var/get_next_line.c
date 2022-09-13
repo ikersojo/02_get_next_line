@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/12 23:20:47 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:30:34 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,69 +21,34 @@
 # define BUFFER_SIZE 1000
 #endif
 
-
-// size_t	ft_get_line_len(char *buff)
-// {
-// 	size_t	len;
-
-// 	len = 0;
-// 	while (*(buff + len))
-// 	{
-// 		len++;
-// 		if (*(buff + len) == '\n')
-// 			break ;
-// 	}
-// 	return (len);
-// }
-
-// char	*extract_line(char *buff, size_t len)
-// {
-// 	size_t	i;
-// 	char	*line;
-
-// 	line = (char *)malloc(sizeof(char) * (len + 1));
-// 	if (line == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < len)
-// 		*(line + i++) = *buff++;
-// 	*(line + i++) = '\0';
-// 	return (line);
-// }
-
-// char	*trim_buff(char *buff, size_t len)
-// {
-// 	char	*trimmed;
-// 	size_t	i;
-
-// 	trimmed = (char *)malloc(sizeof(char) * (ft_strlen(buff) - len + 1));
-// 	if (trimmed == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (len < ft_strlen(buff))
-// 		*(trimmed + i++) = *(buff + len++);
-// 	*(trimmed + i) = '\0';
-// 	return (trimmed);
-// }
-
-static char	*read_buffer(int fd, char *buff)
+static void	ft_read_buffer(int fd, char **buff)
 {
 	char	*tempbuff;
 	int		bytes;
 
-	bytes = 1;
-	while (!ft_strchr(buff, '\n') && bytes != 0)
+	if (*buff == NULL)
+	{
+		*buff = malloc(1);
+		if (*buff == NULL)
+			return ;
+		**buff ='\0';
+	}
+	while (1)
 	{
 		tempbuff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (tempbuff == NULL)
-			return (NULL);
+		{
+			*buff = NULL;
+			return ;
+		}
 		bytes = read(fd, tempbuff, BUFFER_SIZE);
-				printf("   - bytes: %d\n\n", bytes); // DEBUG
 		*(tempbuff + bytes) = '\0';
-		buff = ft_strjoin(buff, tempbuff);
-		printf("   - buff: %s\n\n", buff); // DEBIUG
+		if (bytes != 0)
+			*buff = ft_strjoin(*buff, tempbuff);
+		free(tempbuff);
+		if (ft_isline(*buff) == 1 || bytes == 0)
+			break ;
 	}
-	return (buff);
 }
 
 static size_t	ft_get_line_len(char *buff)
@@ -105,15 +70,15 @@ static void	ft_trim(char **line, char **buff)
 	size_t	len;
 	char	*temp;
 
-	len = ft_get_line_len(*buff);
+	len = ft_get_line_len(*buff) + 1;
 	*line = (char *)malloc(sizeof(char) * (len + 1));
 	if (*line == NULL)
 		return ;
 	*line = ft_substr(*buff, 0, len);
 	temp = ft_substr(*buff, len, ft_strlen(*buff) - len);
-	free (*buff);
+	//free (*buff);
 	*buff = temp;
-	free (temp); 
+	// free (temp); 
 }
 
 /* DESCRIPTION:
@@ -135,14 +100,18 @@ char	*get_next_line(int fd)
 
 	if (fd == -1 || fd > FD_LIMIT || BUFFER_SIZE < 1)
 		return (NULL);
-	buff = read_buffer(fd, buff);
+	ft_read_buffer(fd, &buff);
 	if (buff == NULL)
 		return (NULL);
+	line = NULL;
+	// printf("buff (before trim): %s\n\n", buff);
 	ft_trim(&line, &buff);
+	// printf("line: %s\n", line);
+	// printf("buff (after trim): %s\n", buff);
+	// printf("-----------\n\n");
 
 
-	//line = NULL;
-	// len = ft_get_line_len(buff);
+
 	// if (len > 0)
 	// {
 	// 	line = extract_line(buff, len);
@@ -151,27 +120,27 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+// //--------
+// #include <stdio.h>
+// #include <fcntl.h>
 
-#include <stdio.h>
-#include <fcntl.h>
+// int	main(void)
+// {
+// 	int		fd1;
+// 	char	*line;
+// 	int		i;
 
-int	main(void)
-{
-	int		fd1;
-	char	*line;
-	int		i;
-
-	fd1 = open("test0.txt", O_RDONLY);
-	if (fd1 == -1)
-		return (0);
-	i = 0;
-	while (i < 4)
-	{
-		line = get_next_line(fd1);
-		printf("%s", line);
-		i++;
-	}
-	close(fd1);
-	return (0);
-}
-
+// 	fd1 = open("test0.txt", O_RDONLY);
+// 	if (fd1 == -1)
+// 		return (0);
+// 	i = 0;
+// 	while (i < 6)
+// 	{
+// 		line = get_next_line(fd1);
+// 		printf("%s", line);
+// 		i++;
+// 	}
+// 	close(fd1);
+// 	return (0);
+// }
+// //--------
