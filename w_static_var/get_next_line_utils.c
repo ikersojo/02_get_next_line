@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/13 13:56:12 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/13 20:49:09 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	while (*(s2 + j))
 		*(join + i++) = *(s2 + j++);
 	*(join + i) = '\0';
-	// free(s1);
-	// free(s2);
+	// free((char *)s1);
+	// free((char *)s2);
 	return (join);
 }
 

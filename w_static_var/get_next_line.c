@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/13 17:30:34 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/13 20:54:36 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ static void	ft_read_buffer(int fd, char **buff)
 			return ;
 		}
 		bytes = read(fd, tempbuff, BUFFER_SIZE);
+		if (bytes == 0)
+		{
+			//free(tempbuff);
+			break ;
+		}
 		*(tempbuff + bytes) = '\0';
-		if (bytes != 0)
-			*buff = ft_strjoin(*buff, tempbuff);
-		free(tempbuff);
+		*buff = ft_strjoin(*buff, tempbuff);
+		// free(tempbuff);
 		if (ft_isline(*buff) == 1 || bytes == 0)
 			break ;
 	}
@@ -68,16 +72,16 @@ static size_t	ft_get_line_len(char *buff)
 static void	ft_trim(char **line, char **buff)
 {
 	size_t	len;
-	char	*temp;
+	//char	*temp;
 
 	len = ft_get_line_len(*buff) + 1;
 	*line = (char *)malloc(sizeof(char) * (len + 1));
 	if (*line == NULL)
 		return ;
 	*line = ft_substr(*buff, 0, len);
-	temp = ft_substr(*buff, len, ft_strlen(*buff) - len);
+	*buff = ft_substr(*buff, len, ft_strlen(*buff) - len);
 	//free (*buff);
-	*buff = temp;
+	//*buff = temp;
 	// free (temp); 
 }
 
@@ -120,7 +124,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// //--------
+//--------
 // #include <stdio.h>
 // #include <fcntl.h>
 
@@ -143,4 +147,4 @@ char	*get_next_line(int fd)
 // 	close(fd1);
 // 	return (0);
 // }
-// //--------
+//--------
