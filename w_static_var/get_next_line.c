@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/14 23:19:53 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 08:24:45 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 #define FD_LIMIT 1024
 #ifndef BUFFER_SIZE
@@ -47,14 +48,28 @@ static void	ft_read_buffer(int fd, char **holder)
 		bytes = read(fd, buff, BUFFER_SIZE);
 		if (bytes <= 0)
 		{
-			//free(buff);
+			free(buff);
 			break ;
 		}
 		*(buff + bytes) = '\0';
 		*holder = ft_strjoin(*holder, buff);
-		// free(buff);
+		free(buff);
 	}
 }
+
+// static size_t	ft_get_line_len(char *holder)
+// {
+// 	size_t	len;
+
+// 	len = 0;
+// 	while (*(holder + len))
+// 	{
+// 		len++;
+// 		if (*(holder + len) == '\n')
+// 			break ;
+// 	}
+// 	return (len);
+// }
 
 static size_t	ft_get_line_len(char *holder)
 {
@@ -63,27 +78,28 @@ static size_t	ft_get_line_len(char *holder)
 	len = 0;
 	while (*(holder + len))
 	{
-		len++;
 		if (*(holder + len) == '\n')
-			break ;
+			return (len + 1);
+		len++;
 	}
 	return (len);
 }
 
+
 static void	ft_trim(char **line, char **holder)
 {
 	size_t	len;
-	//char	*temp;
 
 	len = ft_get_line_len(*holder);
+	//printf("--- len = %zu___\n", len);
 	*line = (char *)malloc(sizeof(char) * (len + 1));
 	if (*line == NULL)
 		return ;
+	//printf("--- holder(before) = %s___\n", *holder);
 	*line = ft_substr(*holder, 0, len);
-	*holder = ft_substr(*holder, len, ft_strlen(*holder) - len);
-	//free (*holder);
-	//*holder = temp;
-	// free (temp); 
+	//printf("--- line = %s___\n", *line);
+	*holder = ft_substr(*holder, len, ft_strlen(*holder));
+	//printf("--- holder(after) = %s___\n", *holder);
 }
 
 /* DESCRIPTION:
@@ -109,19 +125,7 @@ char	*get_next_line(int fd)
 	if (holder[fd] == NULL || *holder[fd] == '\0')
 		return (NULL);
 	line = NULL;
-	// printf("holder (before trim): %s\n\n", holder);
 	ft_trim(&line, &holder[fd]);
-	// printf("line: %s\n", line);
-	// printf("holder (after trim): %s\n", holder);
-	// printf("-----------\n\n");
-
-
-
-	// if (len > 0)
-	// {
-	// 	line = extract_line(holder, len);
-	// 	holder = trim_holder(holder, len);
-	// }
 	return (line);
 }
 
@@ -139,10 +143,10 @@ char	*get_next_line(int fd)
 // 	if (fd1 == -1)
 // 		return (0);
 // 	i = 0;
-// 	while (i < 6)
+// 	while (i < 16)
 // 	{
 // 		line = get_next_line(fd1);
-// 		printf("%s", line);
+// 		printf("%d: %s", i + 1, line);
 // 		i++;
 // 	}
 // 	close(fd1);
