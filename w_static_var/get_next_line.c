@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/15 08:24:45 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 16:00:06 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,12 @@
 # define BUFFER_SIZE 1000
 #endif
 
-static void	ft_read_buffer(int fd, char **holder)
+static void	ft_read_buffer(int fd, char **holder, int *bytes)
 {
 	char	*buff;
-	int		bytes;
 
-	if (*holder == NULL)
-	{
-		*holder = malloc(1);
-		if (*holder == NULL)
-			return ;
-		**holder ='\0';
-	}
-	bytes = 1;
-	while (bytes > 0)
+	*bytes = 1;
+	while (*bytes > 0)
 	{
 		if (ft_isline(*holder) == 1)
 			break ;
@@ -45,31 +37,17 @@ static void	ft_read_buffer(int fd, char **holder)
 			*holder = NULL;
 			return ;
 		}
-		bytes = read(fd, buff, BUFFER_SIZE);
-		if (bytes <= 0)
+		*bytes = read(fd, buff, BUFFER_SIZE);
+		if (*bytes <= 0)
 		{
 			free(buff);
 			break ;
 		}
-		*(buff + bytes) = '\0';
+		*(buff + *bytes) = '\0';
 		*holder = ft_strjoin(*holder, buff);
 		free(buff);
 	}
 }
-
-// static size_t	ft_get_line_len(char *holder)
-// {
-// 	size_t	len;
-
-// 	len = 0;
-// 	while (*(holder + len))
-// 	{
-// 		len++;
-// 		if (*(holder + len) == '\n')
-// 			break ;
-// 	}
-// 	return (len);
-// }
 
 static size_t	ft_get_line_len(char *holder)
 {
@@ -89,17 +67,16 @@ static size_t	ft_get_line_len(char *holder)
 static void	ft_trim(char **line, char **holder)
 {
 	size_t	len;
+	char	*temp;
 
 	len = ft_get_line_len(*holder);
-	//printf("--- len = %zu___\n", len);
 	*line = (char *)malloc(sizeof(char) * (len + 1));
 	if (*line == NULL)
 		return ;
-	//printf("--- holder(before) = %s___\n", *holder);
 	*line = ft_substr(*holder, 0, len);
-	//printf("--- line = %s___\n", *line);
-	*holder = ft_substr(*holder, len, ft_strlen(*holder));
-	//printf("--- holder(after) = %s___\n", *holder);
+	temp = ft_substr(*holder, len, ft_strlen(*holder));
+	free(*holder);
+	*holder = temp;
 }
 
 /* DESCRIPTION:
@@ -116,14 +93,25 @@ The function should be protected against reading binary files.
 -----------------------------------------------------------------------------*/
 char	*get_next_line(int fd)
 {
+	int			bytes;
 	char		*line;
 	static char	*holder[FD_LIMIT];
 
 	if (fd == -1 || fd > FD_LIMIT || BUFFER_SIZE < 1)
 		return (NULL);
-	ft_read_buffer(fd, &holder[fd]);
-	if (holder[fd] == NULL || *holder[fd] == '\0')
+	if (holder[fd] == NULL)
+	{
+		holder[fd] = malloc(1);
+		if (holder[fd] == NULL)
+			return (NULL);
+		*holder[fd] ='\0';
+	}
+	ft_read_buffer(fd, &holder[fd], &bytes);
+	if (*holder[fd] == '\0')
+	{
+		//free(holder[fd]);
 		return (NULL);
+	}
 	line = NULL;
 	ft_trim(&line, &holder[fd]);
 	return (line);
@@ -146,7 +134,7 @@ char	*get_next_line(int fd)
 // 	while (i < 16)
 // 	{
 // 		line = get_next_line(fd1);
-// 		printf("%d: %s", i + 1, line);
+// 		printf("   ---> %d: %s", i + 1, line);
 // 		i++;
 // 	}
 // 	close(fd1);
