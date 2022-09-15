@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/15 17:19:37 by isojo-go         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/15 15:11:37 by isojo-go         ###   ########.fr       */
+>>>>>>> f73e243ca1056bc99080d0adfd9555899198f515
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +48,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		*(join + i++) = *(s2 + j++);
 	*(join + i) = '\0';
 	free((char *)s1);
+<<<<<<< HEAD
 	free((char *)s2);
+=======
+>>>>>>> f73e243ca1056bc99080d0adfd9555899198f515
 	return (join);
 }
 
