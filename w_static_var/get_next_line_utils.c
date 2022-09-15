@@ -6,7 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/15 08:27:04 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 17:19:37 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	len;
 
 	len = 0;
+	if (str == NULL)
+		return (0);
 	while (*str++)
 		len++;
 	return (len);
@@ -41,13 +43,15 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	while (*(s2 + j))
 		*(join + i++) = *(s2 + j++);
 	*(join + i) = '\0';
-	// free((char *)s1);
-	// free((char *)s2);
+	free((char *)s1);
+	free((char *)s2);
 	return (join);
 }
 
 int	ft_isline(char *str)
 {
+	if (str == NULL)
+		return (0);
 	while (*str)
 	{
 		if (*str == '\n')
