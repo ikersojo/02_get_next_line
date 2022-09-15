@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/09 12:55:59 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 08:37:34 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*ft_strjoin(char *line, char *buff);
+char	*ft_strappend(char *line, char *buff);
 int		ft_isline(char *str);
 size_t	ft_strlen(char *str);
 char	*get_next_line(int fd);

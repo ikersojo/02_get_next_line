@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/09 12:54:54 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 08:37:34 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_line(size_t size, int fd)
 			line = buff;
 		else
 		{
-			extline = ft_strjoin(line, buff);
+			extline = ft_strappend(line, buff);
 			free(buff);
 			free(line);
 			line = extline;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/09 12:37:00 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/15 08:37:34 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ int	ft_isline(char *str)
 	return (0);
 }
 
-char	*ft_strjoin(char *line, char *buff)
+char	*ft_strappend(char *line, char *buff)
 {
-	char	*join;
+	char	*append;
 	size_t	i;
 	size_t	size;
 
 	size = ft_strlen(line) + ft_strlen(buff) + 1;
-	join = (char *) malloc(sizeof(char) * size);
-	if (join == NULL)
+	append = (char *) malloc(sizeof(char) * size);
+	if (append == NULL)
 		return (NULL);
 	i = 0;
 	while (*line)
-		*(join + i++) = *line++;
+		*(append + i++) = *line++;
 	while (*buff)
-		*(join + i++) = *buff++;
-	*(join + i) = '\0';
-	return (join);
+		*(append + i++) = *buff++;
+	*(append + i) = '\0';
+	return (append);
 }
