@@ -6,11 +6,7 @@
 /*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:37:41 by isojo-go          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/09/15 17:19:37 by isojo-go         ###   ########.fr       */
-=======
-/*   Updated: 2022/09/15 15:11:37 by isojo-go         ###   ########.fr       */
->>>>>>> f73e243ca1056bc99080d0adfd9555899198f515
+/*   Updated: 2022/09/17 10:53:25 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +44,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		*(join + i++) = *(s2 + j++);
 	*(join + i) = '\0';
 	free((char *)s1);
-<<<<<<< HEAD
 	free((char *)s2);
-=======
->>>>>>> f73e243ca1056bc99080d0adfd9555899198f515
 	return (join);
 }
 
@@ -68,26 +61,13 @@ int	ft_isline(char *str)
 	return (0);
 }
 
-static char	*ft_empty_string(void)
-{
-	char	*s;
-
-	s = (char *)malloc(1);
-	if (s == NULL)
-		return (NULL);
-	*s = '\0';
-	return (s);
-}
-
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 	size_t	i;
 
-	if (s == NULL)
+	if (s == NULL || len == 0 || ft_strlen(s) < (size_t)start)
 		return (NULL);
-	if (ft_strlen(s) < (size_t)start)
-		return (ft_empty_string());
 	if ((ft_strlen(s) - start) < len)
 		len = ft_strlen(s) - start;
 	sub = (char *)malloc(len + 1);
