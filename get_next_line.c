@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isojo-go <isojo-go@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isojo-go <isojo-go@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 21:38:02 by isojo-go          #+#    #+#             */
-/*   Updated: 2022/09/17 10:56:15 by isojo-go         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:20:55 by isojo-go         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
 #endif
-#if (BUFFER_SIZE > 1000)
+#if (BUFFER_SIZE > 1000000)
 # undef BUFFER_SIZE
-# define BUFFER_SIZE 1000
+# define BUFFER_SIZE 1000000
 #endif
 
 static void	ft_read_buffer(int fd, char **holder, int *bytes)
