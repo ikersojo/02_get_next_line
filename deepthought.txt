@@ -1,0 +1,144 @@
+= Host-specific information ====================================================
+$> hostname; uname -msr
+c1r3s5.42urduliz.com
+Darwin 19.6.0 x86_64
+$> date
+Tue Oct  4 08:50:09 CEST 2022
+$> gcc --version
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/c++/4.2.1
+Apple clang version 12.0.0 (clang-1200.0.32.29)
+Target: x86_64-apple-darwin19.6.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+$> clang --version
+Apple clang version 12.0.0 (clang-1200.0.32.29)
+Target: x86_64-apple-darwin19.6.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
+= User files collection ========================================================
+Collecting user files from Vogsphere
+Repository URL: git@vogsphere.42urduliz.com:vogsphere/intra-uuid-f259d61b-77cb-4e96-9ced-d23a76598f3b-4410479-isojo-go
+
+= Git history ==================================================================
+$> git -C /tmp/tmpmdn9kxv6/user log --pretty='%H - %an, %ad : %s'
+ae0f862157797fa53e102a2c1fec328ba991664d - Iker Sojo, Thu Sep 29 16:33:17 2022 +0200 : max BUFFER_SIZE modified
+ad542de8da3dca0dfcca9c57f76512d6e67d9b5c - Iker Sojo, Tue Sep 27 10:31:43 2022 +0200 : it01
+ 
+= Collected files ==========================================
+$> ls -lAR /tmp/tmpmdn9kxv6/user
+total 56
+-rw-r--r--  1 root  wheel   845 Oct  4 08:50 __GIT_HISTORY
+-rw-r--r--  1 root  wheel  3074 Oct  4 08:50 get_next_line.c
+-rw-r--r--  1 root  wheel  1196 Oct  4 08:50 get_next_line.h
+-rw-r--r--  1 root  wheel  3080 Oct  4 08:50 get_next_line_bonus.c
+-rw-r--r--  1 root  wheel  1208 Oct  4 08:50 get_next_line_bonus.h
+-rw-r--r--  1 root  wheel  1984 Oct  4 08:50 get_next_line_utils.c
+-rw-r--r--  1 root  wheel  1990 Oct  4 08:50 get_next_line_utils_bonus.c
+ 
+= basic_tests ==================================================================
+$> /usr/bin/norminette  get_next_line.c get_next_line_utils_bonus.c get_next_line.h get_next_line_bonus.c get_next_line_utils.c get_next_line_bonus.h | grep -E '^(Error|Warning)'
+
+
+total 104
+-rw-r--r--  1 deepthought  deepthought  3074 Oct  4 06:50 get_next_line.c
+-rw-r--r--  1 deepthought  deepthought  1196 Oct  4 06:50 get_next_line.h
+-rw-r--r--  1 deepthought  deepthought  1984 Oct  4 06:50 get_next_line_utils.c
+-rw-r--r--  1 deepthought  deepthought  1273 Oct  4 06:50 limited_pipe.c
+-rw-r--r--  1 deepthought  deepthought   527 Oct  4 06:50 main1.c
+-rw-r--r--  1 deepthought  deepthought  1382 Oct  4 06:50 main2.c
+-rw-r--r--  1 deepthought  deepthought   448 Oct  4 06:50 main2_generator.c
+-rw-r--r--  1 deepthought  deepthought   721 Oct  4 06:50 main3.c
+-rw-r--r--  1 deepthought  deepthought  2929 Oct  4 06:50 malloc.c
+-rw-r--r--  1 deepthought  deepthought  1447 Oct  4 06:50 ref_get_next_line.c
+-rwxr-xr-x  1 deepthought  deepthought  1552 Oct  4 06:50 test.sh
+-rwxr-xr-x  1 deepthought  deepthought   719 Oct  4 06:50 test2.sh
+-rwxr-xr-x  1 deepthought  deepthought  1523 Oct  4 06:50 test3.sh
+
+
+>>>>>>>>>>> 1
+
+>>>>>>>>>>> 2
+
+>>>>>>>>>>> 3
+
+>>>>>>>>>>> 4
+
+
+>>>>>>>>>>> 1
+>>>>>>>>>>> 2
+>>>>>>>>>>> 3
+>>>>>>>>>>> 4
+
+total 104
+-rw-r--r--  1 deepthought  deepthought  3074 Oct  4 06:50 get_next_line.c
+-rw-r--r--  1 deepthought  deepthought  1196 Oct  4 06:50 get_next_line.h
+-rw-r--r--  1 deepthought  deepthought  1984 Oct  4 06:50 get_next_line_utils.c
+-rw-r--r--  1 deepthought  deepthought  1273 Oct  4 06:50 limited_pipe.c
+-rw-r--r--  1 deepthought  deepthought   527 Oct  4 06:50 main1.c
+-rw-r--r--  1 deepthought  deepthought  1382 Oct  4 06:50 main2.c
+-rw-r--r--  1 deepthought  deepthought   448 Oct  4 06:50 main2_generator.c
+-rw-r--r--  1 deepthought  deepthought   721 Oct  4 06:50 main3.c
+-rw-r--r--  1 deepthought  deepthought  2929 Oct  4 06:50 malloc.c
+-rw-r--r--  1 deepthought  deepthought  1447 Oct  4 06:50 ref_get_next_line.c
+-rwxr-xr-x  1 deepthought  deepthought  1552 Oct  4 06:50 test.sh
+-rwxr-xr-x  1 deepthought  deepthought   719 Oct  4 06:50 test2.sh
+-rwxr-xr-x  1 deepthought  deepthought  1523 Oct  4 06:50 test3.sh
+
+
+>>>>>>>>>>> 5
+
+
+>>>>>>>>>>> 5
+
+total 104
+-rw-r--r--  1 deepthought  deepthought  3074 Oct  4 06:50 get_next_line.c
+-rw-r--r--  1 deepthought  deepthought  1196 Oct  4 06:50 get_next_line.h
+-rw-r--r--  1 deepthought  deepthought  1984 Oct  4 06:50 get_next_line_utils.c
+-rw-r--r--  1 deepthought  deepthought  1273 Oct  4 06:50 limited_pipe.c
+-rw-r--r--  1 deepthought  deepthought   527 Oct  4 06:50 main1.c
+-rw-r--r--  1 deepthought  deepthought  1382 Oct  4 06:50 main2.c
+-rw-r--r--  1 deepthought  deepthought   448 Oct  4 06:50 main2_generator.c
+-rw-r--r--  1 deepthought  deepthought   721 Oct  4 06:50 main3.c
+-rw-r--r--  1 deepthought  deepthought  2929 Oct  4 06:50 malloc.c
+-rw-r--r--  1 deepthought  deepthought  1447 Oct  4 06:50 ref_get_next_line.c
+-rwxr-xr-x  1 deepthought  deepthought  1552 Oct  4 06:50 test.sh
+-rwxr-xr-x  1 deepthought  deepthought   719 Oct  4 06:50 test2.sh
+-rwxr-xr-x  1 deepthought  deepthought  1523 Oct  4 06:50 test3.sh
+
+
+>>>>>>>>>>> 1
+
+>>>>>>>>>>> 2
+>>>>>>>>>>> 3
+
+>>>>>>>>>>> 4
+
+
+>>>>>>>>>>> 1
+>>>>>>>>>>> 2
+>>>>>>>>>>> 3
+>>>>>>>>>>> 4
+
+GNL OK
+Grade: 100
+
+= bonus_tests ==================================================================
+total 64
+-rw-r--r--  1 deepthought  deepthought  3080 Oct  4 06:50 get_next_line_bonus.c
+-rw-r--r--  1 deepthought  deepthought  1208 Oct  4 06:50 get_next_line_bonus.h
+-rw-r--r--  1 deepthought  deepthought  1990 Oct  4 06:50 get_next_line_utils_bonus.c
+-rw-r--r--  1 deepthought  deepthought  1273 Oct  4 06:50 limited_pipe.c
+-rw-r--r--  1 deepthought  deepthought  1630 Oct  4 06:50 main1.c
+-rw-r--r--  1 deepthought  deepthought  2929 Oct  4 06:50 malloc.c
+-rw-r--r--  1 deepthought  deepthought  1447 Oct  4 06:50 ref_get_next_line.c
+-rwxr-xr-x  1 deepthought  deepthought   864 Oct  4 06:50 test.sh
+
+
+>>>>>>>>>>> 1
+
+
+GNL OK
+Grade: 25
+
+= Final grade: 125 =============================================================
